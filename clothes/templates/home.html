@@ -6,53 +6,56 @@
     <title>سوار العسل | Swar Al-Asal</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
-        body { position: relative; background-color: #fcfcfc; font-family: Tahoma, sans-serif; }
-        /* تصميم الخلفية المائية */
-        body::after {
-            content: "Swar Al-Asal";
-            position: fixed; top: 50%; left: 50%;
-            transform: translate(-50%, -50%) rotate(-45deg);
-            font-size: 8rem; color: rgba(200, 200, 200, 0.1);
-            pointer-events: none; z-index: -1;
+        body { 
+            background: linear-gradient(135deg, #fdfcfb 0%, #f7f3e9 100%);
+            font-family: 'Segoe UI', Tahoma, sans-serif;
+            min-height: 100vh;
         }
-        .card:hover { transform: translateY(-5px); transition: 0.3s; box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
+        .navbar { background-color: #d4af37 !important; }
+        .card { 
+            border-radius: 20px; 
+            border: none; 
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            transition: 0.3s;
+        }
+        .card:hover { transform: translateY(-10px); }
+        .btn-success { background-color: #25d366; border: none; }
+        .price-tag { color: #d4af37; font-weight: bold; font-size: 1.5rem; }
     </style>
 </head>
 <body>
-    <nav class="navbar navbar-dark bg-dark mb-5">
-        <div class="container">
-            <a class="navbar-brand fw-bold" href="#">سوار العسل للأزياء</a>
+
+    <nav class="navbar navbar-dark mb-5 p-3">
+        <div class="container justify-content-center">
+            <h2 class="text-white fw-bold">مرحباً بكم في سوار العسل 🍯</h2>
         </div>
     </nav>
 
     <div class="container">
         <div class="row">
             {% for product in products %}
-            <div class="col-6 col-md-3 mb-4">
-                <div class="card h-100 shadow-sm border-0">
+            <div class="col-md-4 col-sm-6 mb-4">
+                <div class="card h-100 p-2">
                     {% if product.image %}
-                    <img src="{{ product.image.url }}" class="card-img-top" style="height: 250px; object-fit: cover;">
+                    <img src="{{ product.image.url }}" class="card-img-top rounded-3" style="height: 300px; object-fit: cover;">
                     {% endif %}
-                    
                     <div class="card-body text-center">
-                        <h5 class="card-title">{{ product.name }}</h5>
-                        <p class="text-primary fw-bold fs-4">{{ product.price }} د.أ</p>
-                        
-                        <a href="https://wa.me/962785085166?text=مرحباً، أريد طلب القطعة التالية:%0A%0Aاسم القطعة: {{ product.name }}%0Aالسعر: {{ product.price }} د.أ%0A%0Aيرجى تأكيد الطلب." 
-                           class="btn btn-success w-100 mt-2" target="_blank">
-                           اطلب الآن عبر واتساب
+                        <h4 class="card-title">{{ product.name }}</h4>
+                        <p class="price-tag">{{ product.price }} د.أ</p>
+                        <a href="https://wa.me/962785085166?text=مرحباً، أريد طلب القطعة: {{ product.name }} بسعر {{ product.price }} د.أ" 
+                           class="btn btn-success w-100 py-2 rounded-pill" target="_blank">
+                           اضغط للطلب عبر واتساب
                         </a>
                     </div>
                 </div>
-            </div>
-            {% empty %}
-            <div class="text-center mt-5">
-                <h3>لا توجد منتجات حالياً</h3>
             </div>
             {% endfor %}
         </div>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5ش.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <footer class="text-center mt-5 p-4 text-muted">
+        <p>© 2026 سوار العسل - جميع الحقوق محفوظة</p>
+    </footer>
+
 </body>
 </html>
