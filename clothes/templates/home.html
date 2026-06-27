@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        /* الخلفية المائية */
+        body { background-color: #f8f9fa; position: relative; }
+        body::before {
+            content: "Swar Al-Asal";
+            position: fixed; top: 50%; left: 50%;
+            transform: translate(-50%, -50%) rotate(-45deg);
+            font-size: 100px; color: rgba(0,0,0,0.05);
+            pointer-events: none; z-index: -1;
+        }
+        .card:hover { transform: scale(1.05); transition: 0.3s; }
+    </style>
+    <title>سوار العسل | Swar Al-Asal</title>
+</head>
+<body>
+    <nav class="navbar navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="#">سوار العسل</a>
+            <button class="btn btn-warning">🛒 السلة (0)</button>
+        </div>
+    </nav>
+    <div class="container mt-4">
+        <div class="row">
+            {% for product in products %}
+            <div class="col-6 col-md-3">
+                <div class="card mb-4 shadow">
+                    {% if product.image %}
+                    <img src="{{ product.image.url }}" class="card-img-top" height="200">
+                    {% endif %}
+                    <div class="card-body">
+                        <h6 class="card-title">{{ product.name }}</h6>
+                        <p class="text-primary fw-bold">{{ product.price }} دينار</p>
+                        <a href="https://wa.me/9627XXXXXXXX?text=أريد شراء {{ product.name }}" class="btn btn-success btn-sm w-100">اطلب واتساب</a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</body>
+</html>
