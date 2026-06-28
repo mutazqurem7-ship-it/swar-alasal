@@ -3,34 +3,31 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>سوار العسل | الرئيسية</title>
+    <title>عروض سوار العسل</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
-        body { background-color: #f8f9fa; font-family: 'Segoe UI', Tahoma, sans-serif; }
-        .product-card { background: #fff; border: none; margin-bottom: 15px; }
+        body { background-color: #fff5f5; }
+        .product-card { background: #fff; border: 1px solid #ffcccc; margin-bottom: 15px; }
         .product-img { height: 200px; object-fit: cover; }
-        .btn-buy { background-color: #25d366; color: white; border-radius: 20px; }
     </style>
 </head>
 <body>
-    <nav class="navbar navbar-light bg-white shadow-sm mb-4">
+    <nav class="navbar bg-white shadow-sm mb-4">
         <div class="container">
-            <a class="navbar-brand fw-bold" href="/">سوار العسل 🍯</a>
-            <a href="/offers/" class="btn btn-outline-danger btn-sm">العروض والخصومات 🔥</a>
+            <a class="navbar-brand fw-bold text-danger" href="/">عودة للرئيسية</a>
         </div>
     </nav>
-    <div class="container">
+    <div class="container text-center">
+        <h2 class="text-danger mb-4">أقوى العروض 🔥</h2>
         <div class="row row-cols-2 row-cols-md-4 g-3">
             {% for product in products %}
             <div class="col">
                 <div class="product-card card h-100 p-2">
-                    {% if product.image %}
                     <img src="{{ product.image.url }}" class="product-img w-100">
-                    {% endif %}
                     <div class="card-body p-1 text-center">
                         <h6>{{ product.name }}</h6>
-                        <p class="text-primary fw-bold">{{ product.price }} د.أ</p>
-                        <a href="https://wa.me/962785085166?text=أريد طلب: {{ product.name }}" class="btn btn-buy w-100 btn-sm">اطلب الآن</a>
+                        <p class="text-danger fw-bold">{{ product.price }} د.أ</p>
+                        <a href="https://wa.me/962785085166?text=أريد عرض: {{ product.name }}" class="btn btn-danger w-100 btn-sm">اطلب العرض</a>
                     </div>
                 </div>
             </div>
