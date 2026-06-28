@@ -3,39 +3,81 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>سوار العسل | الرئيسية</title>
+    <title>سوار العسل | متجر الأناقة</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
-        body { background-color: #f8f9fa; font-family: 'Segoe UI', Tahoma, sans-serif; }
-        .product-card { background: #fff; border: none; margin-bottom: 15px; }
-        .product-img { height: 200px; object-fit: cover; }
-        .btn-buy { background-color: #25d366; color: white; border-radius: 20px; }
+        /* الخلفية المزخرفة */
+        body { 
+            background-color: #fdfcfb; 
+            background-image: radial-gradient(#d4af37 0.5px, #fdfcfb 0.5px); 
+            background-size: 20px 20px; 
+            font-family: 'Segoe UI', Tahoma, sans-serif;
+        }
+        .product-card { background: white; border-radius: 15px; overflow: hidden; transition: 0.3s; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
+        .product-card:hover { transform: translateY(-5px); }
+        .cart-btn { position: fixed; bottom: 30px; right: 30px; z-index: 1000; box-shadow: 0 4px 15px rgba(0,0,0,0.2); }
     </style>
 </head>
 <body>
-    <nav class="navbar navbar-light bg-white shadow-sm mb-4">
-        <div class="container">
-            <a class="navbar-brand fw-bold" href="/">سوار العسل 🍯</a>
-            <a href="/offers/" class="btn btn-outline-danger btn-sm">العروض والخصومات 🔥</a>
-        </div>
-    </nav>
+
+<div class="cart-btn">
+    <button class="btn btn-success btn-lg rounded-pill px-4" onclick="sendWhatsApp()">
+        🛒 السلة (<span id="cart-count">0</span>)
+    </button>
+</div>
+
+<nav class="navbar navbar-light bg-white shadow-sm mb-4">
     <div class="container">
-        <div class="row row-cols-2 row-cols-md-4 g-3">
-            {% for product in products %}
-            <div class="col">
-                <div class="product-card card h-100 p-2">
-                    {% if product.image %}
-                    <img src="{{ product.image.url }}" class="product-img w-100">
-                    {% endif %}
-                    <div class="card-body p-1 text-center">
-                        <h6>{{ product.name }}</h6>
-                        <p class="text-primary fw-bold">{{ product.price }} د.أ</p>
-                        <a href="https://wa.me/962785085166?text=أريد طلب: {{ product.name }}" class="btn btn-buy w-100 btn-sm">اطلب الآن</a>
-                    </div>
-                </div>
-            </div>
-            {% endfor %}
-        </div>
+        <a class="navbar-brand fw-bold" href="/">سوار العسل 🍯</a>
+        <a href="/offers/" class="btn btn-outline-danger btn-sm">العروض 🔥</a>
     </div>
+</nav>
+
+<div class="container">
+    <div class="row row-cols-2 row-cols-md-4 g-3">
+        {% for product in products %}
+        <div class="col">
+            <div class="product-card p-2 text-center">
+                {% if product.image %}
+                <img src="{{ product.image.url }}" class="img-fluid mb-2" style="height: 150px; object-fit: cover; width: 100%;">
+                {% endif %}
+                <h6>{{ product.name }}</h6>
+                <p class="text-primary fw-bold">{{ product.price }} د.أ</p>
+                
+                <button class="btn btn-outline-success btn-sm w-100" onclick="addToCart('{{ product.name }}', {{ product.price }})">
+                    إضافة للسلة
+                </button>
+
+                {% if user.is_staff %}
+                <button class="btn btn-danger btn-sm w-100 mt-1" onclick="this.closest('.col').style.display='none'">
+                    إخفاء القطعة
+                </button>
+                {% endif %}
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+<script>
+    let cart = [];
+    function addToCart(name, price) {
+        cart.push({name, price});
+        document.getElementById('cart-count').innerText = cart.length;
+        alert('تم إضافة ' + name + ' إلى السلة!');
+    }
+
+    function sendWhatsApp() {
+        if(cart.length === 0) { alert('السلة فارغة!'); return; }
+        let msg = "مرحباً، أريد طلب القطع التالية:%0A";
+        let total = 0;
+        cart.forEach(item => { 
+            msg += "- " + item.name + " (" + item.price + " د.أ)%0A"; 
+            total += item.price;
+        });
+        msg += "%0Aالمجموع: " + total + " د.أ";
+        window.open('https://wa.me/962785085166?text=' + msg);
+    }
+</script>
 </body>
 </html>
